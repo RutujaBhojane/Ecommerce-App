@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { fetchProducts } from './productsSlice';
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fetchProducts, deleteProduct } from "./productsSlice";
+import ProductForm from "./ProductForm";
 
 const ProductList = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ const ProductList = () => {
 
   return (
     <div className="p-6">
+      <ProductForm />
       <h2 className="text-xl font-semibold mb-4">Products</h2>
       <table className="w-full text-sm border">
         <thead>
@@ -23,6 +25,7 @@ const ProductList = () => {
             <th className="p-2">Category</th>
             <th className="p-2">Price</th>
             <th className="p-2">Stock</th>
+            <th className="p-2">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -32,6 +35,14 @@ const ProductList = () => {
               <td className="p-2">{p.category}</td>
               <td className="p-2">${p.price}</td>
               <td className="p-2">{p.stock}</td>
+              <td className="p-2">
+                <button
+                  onClick={() => dispatch(deleteProduct(p.id))}
+                  className="text-red-500 text-sm hover:underline"
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
