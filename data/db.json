@@ -3,33 +3,62 @@
     {
       "id": "1",
       "name": "Wireless Mouse",
-      "price": 25.99,
+      "price": 749.99,
       "stock": 120,
       "category": "Electronics"
     },
     {
       "id": "2",
       "name": "Mechanical Keyboard",
-      "price": 79.99,
+      "price": 2999.99,
       "stock": 45,
       "category": "Electronics"
     },
     {
       "id": "3",
       "name": "Office Chair",
-      "price": 149.99,
+      "price": 3499.99,
       "stock": 12,
       "category": "Furniture"
     },
     {
       "id": "4",
       "name": "Desk Lamp",
-      "price": 19.99,
+      "price": 999.99,
       "stock": 80,
       "category": "Furniture"
     }
   ],
-  "orders": [],
+  "orders": [
+    {
+      "id": "1",
+      "customerName": "Asha Patel",
+      "status": "processing",
+      "amount": 1280,
+      "date": "2024-01-15"
+    },
+    {
+      "id": "2",
+      "customerName": "Rohan Mehta",
+      "status": "shipped",
+      "amount": 760.5,
+      "date": "2024-01-16"
+    },
+    {
+      "id": "3",
+      "customerName": "Maya Iyer",
+      "status": "delivered",
+      "amount": 2140.3,
+      "date": "2024-01-17"
+    },
+    {
+      "id": "4",
+      "customerName": "Arjun Shah",
+      "status": "processing",
+      "amount": 990.99,
+      "date": "2024-01-18"
+    }
+  ],
   "customers": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

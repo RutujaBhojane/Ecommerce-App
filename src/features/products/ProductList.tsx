@@ -33,7 +33,7 @@ const ProductList = () => {
             <tr key={p.id} className="border-t">
               <td className="p-2">{p.name}</td>
               <td className="p-2">{p.category}</td>
-              <td className="p-2">${p.price}</td>
+              <td className="p-2">₹{p.price}</td>
               <td className="p-2">{p.stock}</td>
               <td className="p-2">
                 <button
