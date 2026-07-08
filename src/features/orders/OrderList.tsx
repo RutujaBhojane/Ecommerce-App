@@ -40,7 +40,7 @@ const OrderList = () => {
               <td className="p-2">#{o.id}</td>
               <td className="p-2">{o.customerName}</td>
               <td className="p-2">{o.date}</td>
-              <td className="p-2">₹{o.amount.toFixed(2)}</td>
+              <td className="p-2">₹ {o.amount.toFixed(2)}</td>
               <td className="p-2">
                 <span className={`px-2 py-1 rounded text-xs font-medium ${statusStyles[o.status]}`}>
                   {o.status}

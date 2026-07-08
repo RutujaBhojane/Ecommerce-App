@@ -1,2 +1,105 @@
-const Dashboard = () => <div className="p-6">Dashboard page</div>;
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { fetchDashboardData } from './dashboardSlice';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
+
+const salesData = [
+  { day: 'Mon', sales: 320 },
+  { day: 'Tue', sales: 480 },
+  { day: 'Wed', sales: 210 },
+  { day: 'Thu', sales: 590 },
+  { day: 'Fri', sales: 430 },
+  { day: 'Sat', sales: 670 },
+  { day: 'Sun', sales: 390 },
+];
+
+const Dashboard = () => {
+  const dispatch = useAppDispatch();
+  const {
+    totalRevenue,
+    totalOrders,
+    totalCustomers,
+    lowStockProducts,
+    recentOrders,
+    loading,
+  } = useAppSelector((state) => state.dashboard);
+
+  useEffect(() => {
+    dispatch(fetchDashboardData());
+  }, [dispatch]);
+
+  if (loading) return <div className="p-6">Loading dashboard...</div>;
+
+  return (
+    <div className="p-6">
+      {/* KPI Cards */}
+      <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="bg-white border rounded p-4">
+          <p className="text-sm text-gray-500">Total Revenue</p>
+          <p className="text-2xl font-semibold">₹ {totalRevenue.toFixed(2)}</p>
+        </div>
+        <div className="bg-white border rounded p-4">
+          <p className="text-sm text-gray-500">Total Orders</p>
+          <p className="text-2xl font-semibold">{totalOrders}</p>
+        </div>
+        <div className="bg-white border rounded p-4">
+          <p className="text-sm text-gray-500">Customers</p>
+          <p className="text-2xl font-semibold">{totalCustomers}</p>
+        </div>
+        <div className="bg-white border rounded p-4">
+          <p className="text-sm text-gray-500">Low Stock</p>
+          <p className="text-2xl font-semibold text-red-500">{lowStockProducts}</p>
+        </div>
+      </div>
+
+      {/* Sales Chart */}
+      <div className="bg-white border rounded p-4 mb-6">
+        <h3 className="text-sm font-medium text-gray-500 mb-4">Sales This Week</h3>
+        <ResponsiveContainer width="100%" height={250}>
+          <BarChart data={salesData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="day" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="sales" fill="#2563eb" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Recent Orders */}
+      <div className="bg-white border rounded p-4">
+        <h3 className="text-sm font-medium text-gray-500 mb-4">Recent Orders</h3>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-left text-gray-500 border-b">
+              <th className="pb-2">Order ID</th>
+              <th className="pb-2">Customer</th>
+              <th className="pb-2">Amount</th>
+              <th className="pb-2">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentOrders.map((o) => (
+              <tr key={o.id} className="border-t">
+                <td className="py-2">#{o.id}</td>
+                <td className="py-2">{o.customerName}</td>
+                <td className="py-2">₹ {o.amount.toFixed(2)}</td>
+                <td className="py-2">{o.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
 export default Dashboard;

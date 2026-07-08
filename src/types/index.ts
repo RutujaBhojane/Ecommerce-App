@@ -20,3 +20,10 @@ export interface Customer {
   email: string;
   totalOrders: number;
 }
+
+export interface DashboardStat {
+  totalRevenue: number;
+  totalOrders: number;
+  totalCustomers: number;
+  lowStockProducts: number;
+}
