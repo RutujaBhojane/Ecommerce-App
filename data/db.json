@@ -59,6 +59,31 @@
       "date": "2024-01-18"
     }
   ],
-  "customers": [],
+  "customers": [
+    {
+      "id": "1",
+      "name": "Asha Patel",
+      "email": "asha@email.com",
+      "totalOrders": 5
+    },
+    {
+      "id": "2",
+      "name": "Rohan Mehta",
+      "email": "rohan@email.com",
+      "totalOrders": 3
+    },
+    {
+      "id": "3",
+      "name": "Maya Iyer",
+      "email": "maya@email.com",
+      "totalOrders": 8
+    },
+    {
+      "id": "4",
+      "name": "Arjun Shah",
+      "email": "arjun@email.com",
+      "totalOrders": 1
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
