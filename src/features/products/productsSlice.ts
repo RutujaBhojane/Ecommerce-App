@@ -5,12 +5,16 @@ interface ProductsState {
   items: Product[];
   loading: boolean;
   error: string | null;
+  searchQuery: string;
+  selectedCategory: string;
 }
 
 const initialState: ProductsState = {
   items: [],
   loading: false,
   error: null,
+  searchQuery: "",
+  selectedCategory: "",
 };
 
 export const fetchProducts = createAsyncThunk("products/fetch", async () => {
@@ -41,7 +45,14 @@ export const deleteProduct = createAsyncThunk(
 const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchQuery(state, action) {
+      state.searchQuery = action.payload;
+    },
+    setSelectedCategory(state, action) {
+      state.selectedCategory = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -65,4 +76,5 @@ const productsSlice = createSlice({
   },
 });
 
+export const { setSearchQuery, setSelectedCategory } = productsSlice.actions;
 export default productsSlice.reducer;
