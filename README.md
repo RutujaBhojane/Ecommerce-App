@@ -1,76 +1,80 @@
-# React + TypeScript + Vite
+# E-Commerce Admin Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-featured admin dashboard for managing products, orders, and customers — built with React, TypeScript, and Redux Toolkit.
 
-Currently, two official plugins are available:
+## Live Demo
+🔗 [View Live](#) ← replace with Vercel link after deployment
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Screenshots
+<!-- Add screenshots after deployment -->
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 📊 **Dashboard** — KPI cards (revenue, orders, customers, low stock) and weekly sales bar chart
+- 📦 **Products** — Full CRUD (add, edit, delete), search by name, filter by category
+- 🛒 **Orders** — View all orders, update order status (processing → shipped → delivered)
+- 👥 **Customers** — Customer list with order history
+- 🌙 **Dark mode** — Toggle between light and dark theme
+- 🔗 **Active sidebar navigation** — Visual highlight on current page
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Category | Technology |
+|---|---|
+| Framework | React 18 + TypeScript |
+| State Management | Redux Toolkit + createAsyncThunk |
+| Styling | Tailwind CSS v4 |
+| Routing | React Router v6 |
+| Charts | Recharts |
+| Forms & Validation | React Hook Form + Zod |
+| Mock Backend | json-server |
+| Build Tool | Vite |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
+- Node.js 18+
+- npm
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
 
+1. Clone the repo
+```bash
+   git clone https://github.com/YOUR_USERNAME/ecommerce-admin-dashboard.git
+   cd ecommerce-admin-dashboard
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+2. Install dependencies
+```bash
+   npm install
 ```
-npx json-server --watch data/db.json --port 5000
+
+3. Start the mock backend (json-server)
+```bash
+   npx json-server --watch data/db.json --port 5000
+```
+
+4. Start the dev server (in a separate terminal)
+```bash
+   npm start
+```
+
+5. Open [http://localhost:5173](http://localhost:5173) in your browser
+
+## Project Structure
+
+src/
+├── app/             # Redux store, typed hooks, theme context
+├── features/        # Feature-based modules (products, orders, customers, dashboard)
+├── components/      # Shared layout components (Sidebar, Header)
+├── routes/          # React Router setup
+└── types/           # TypeScript interfaces (Product, Order, Customer)
+
+## Key Technical Highlights
+
+- **TypeScript throughout** — typed Redux state, async thunks, component props, and Zod-inferred form types
+- **Redux Toolkit** — multiple slices with `createAsyncThunk` for async API calls and local reducers for UI state (search, filter)
+- **Zod + React Hook Form** — schema-based form validation with TypeScript type inference (`z.infer`)
+- **`useMemo`** — optimized client-side filtering without unnecessary re-renders
+- **Utility types** — `Omit<Product, 'id'>` for add-product thunk, `Record<Order['status'], string>` for status badge styles
+
