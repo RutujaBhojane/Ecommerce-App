@@ -7,6 +7,7 @@ interface ProductsState {
   error: string | null;
   searchQuery: string;
   selectedCategory: string;
+  selectedProduct: Product | null;
 }
 
 const initialState: ProductsState = {
@@ -15,6 +16,7 @@ const initialState: ProductsState = {
   error: null,
   searchQuery: "",
   selectedCategory: "",
+  selectedProduct: null,
 };
 
 export const fetchProducts = createAsyncThunk("products/fetch", async () => {
@@ -42,6 +44,21 @@ export const deleteProduct = createAsyncThunk(
   },
 );
 
+export const editProduct = createAsyncThunk(
+  "products/edit",
+  async (product: Product) => {
+    const response = await fetch(
+      `http://localhost:5000/products/${product.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      },
+    );
+    return (await response.json()) as Product;
+  },
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -51,6 +68,9 @@ const productsSlice = createSlice({
     },
     setSelectedCategory(state, action) {
       state.selectedCategory = action.payload;
+    },
+    setSelectedProduct: (state, action) => {
+      state.selectedProduct = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -72,9 +92,13 @@ const productsSlice = createSlice({
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.items = state.items.filter((p) => p.id !== action.payload);
+      })
+      .addCase(editProduct.fulfilled, (state, action) => {
+        const index = state.items.findIndex((p) => p.id === action.payload.id);
+        if (index !== -1) state.items[index] = action.payload;
       });
   },
 });
 
-export const { setSearchQuery, setSelectedCategory } = productsSlice.actions;
+export const { setSearchQuery, setSelectedCategory, setSelectedProduct } = productsSlice.actions;
 export default productsSlice.reducer;

@@ -22,25 +22,25 @@
       "category": "Furniture"
     },
     {
-      "id": "4",
       "name": "Desk Lamp",
       "price": 999.99,
       "stock": 80,
-      "category": "Furniture"
+      "category": "Furniture",
+      "id": "4"
     }
   ],
   "orders": [
     {
       "id": "1",
       "customerName": "Asha Patel",
-      "status": "processing",
+      "status": "shipped",
       "amount": 1280,
       "date": "2024-01-15"
     },
     {
       "id": "2",
       "customerName": "Rohan Mehta",
-      "status": "shipped",
+      "status": "processing",
       "amount": 760.5,
       "date": "2024-01-16"
     },
