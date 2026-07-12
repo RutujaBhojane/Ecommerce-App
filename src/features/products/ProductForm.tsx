@@ -23,7 +23,7 @@ const ProductForm = () => {
     formState: { errors },
     reset,
   } = useForm<ProductFormData>({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(productSchema) as any,
   });
 
   const onSubmit = (data: ProductFormData) => {

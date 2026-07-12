@@ -24,7 +24,7 @@ const EditProductModal = () => {
     formState: { errors },
     reset,
   } = useForm<ProductFormData>({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(productSchema) as any,
   });
 
   // pre-fill form when selectedProduct changes
