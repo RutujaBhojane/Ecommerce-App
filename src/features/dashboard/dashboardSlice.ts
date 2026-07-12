@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { Product, Order, Customer } from '../../types';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface DashboardState {
   totalRevenue: number;
   totalOrders: number;
@@ -25,9 +27,9 @@ export const fetchDashboardData = createAsyncThunk(
   'dashboard/fetchAll',
   async () => {
     const [productsRes, ordersRes, customersRes] = await Promise.all([
-      fetch('http://localhost:5000/products'),
-      fetch('http://localhost:5000/orders'),
-      fetch('http://localhost:5000/customers'),
+      fetch(`${API_URL}/products`),
+      fetch(`${API_URL}/orders`),
+      fetch(`${API_URL}/customers`),
     ]);
     const products: Product[] = await productsRes.json();
     const orders: Order[] = await ordersRes.json();

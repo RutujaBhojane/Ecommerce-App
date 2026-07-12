@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { Product } from "../../types";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface ProductsState {
   items: Product[];
   loading: boolean;
@@ -20,14 +22,14 @@ const initialState: ProductsState = {
 };
 
 export const fetchProducts = createAsyncThunk("products/fetch", async () => {
-  const response = await fetch("http://localhost:5000/products");
+  const response = await fetch(`${API_URL}/products`);
   return (await response.json()) as Product[];
 });
 
 export const addProduct = createAsyncThunk(
   "products/add",
   async (product: Omit<Product, "id">) => {
-    const response = await fetch("http://localhost:5000/products", {
+    const response = await fetch(`${API_URL}/products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(product),
@@ -39,7 +41,7 @@ export const addProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
   "products/delete",
   async (id: string) => {
-    await fetch(`http://localhost:5000/products/${id}`, { method: "DELETE" });
+    await fetch(`${API_URL}/products/${id}`, { method: "DELETE" });
     return id;
   },
 );
@@ -48,7 +50,7 @@ export const editProduct = createAsyncThunk(
   "products/edit",
   async (product: Product) => {
     const response = await fetch(
-      `http://localhost:5000/products/${product.id}`,
+      `${API_URL}/products/${product.id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

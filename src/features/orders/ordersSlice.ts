@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { Order } from '../../types';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface OrdersState {
   items: Order[];
   loading: boolean;
@@ -14,14 +16,14 @@ const initialState: OrdersState = {
 };
 
 export const fetchOrders = createAsyncThunk('orders/fetch', async () => {
-  const response = await fetch('http://localhost:5000/orders');
+  const response = await fetch(`${API_URL}/orders`);
   return (await response.json()) as Order[];
 });
 
 export const updateOrderStatus = createAsyncThunk(
   'orders/updateStatus',
   async ({ id, status }: { id: string; status: Order['status'] }) => {
-    const response = await fetch(`http://localhost:5000/orders/${id}`, {
+    const response = await fetch(`${API_URL}/orders/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),

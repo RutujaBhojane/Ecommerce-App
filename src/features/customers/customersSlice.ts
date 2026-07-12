@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { Customer } from "../../types";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface CustomersState {
   items: Customer[];
   loading: boolean;
@@ -14,7 +16,7 @@ const initialState: CustomersState = {
 };
 
 export const fetchCustomers = createAsyncThunk("customers/fecth", async () => {
-  const response = await fetch("http://localhost:5000/customers");
+  const response = await fetch(`${API_URL}/customers`);
   return (await response.json()) as Customer[];
 });
 
