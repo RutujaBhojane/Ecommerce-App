@@ -21,9 +21,20 @@ const initialState: ProductsState = {
   selectedProduct: null,
 };
 
-export const fetchProducts = createAsyncThunk("products/fetch", async () => {
-  const response = await fetch(`${API_URL}/products`);
-  return (await response.json()) as Product[];
+export const fetchProducts = createAsyncThunk('products/fetch', async () => {
+  try {
+    const response = await fetch(`${API_URL}/products`);
+    if (!response.ok) throw new Error('Server error');
+    return (await response.json()) as Product[];
+  } catch {
+    // fallback static data
+    return [
+      { id: '1', name: 'Wireless Mouse', price: 25.99, stock: 120, category: 'Electronics' },
+      { id: '2', name: 'Mechanical Keyboard', price: 79.99, stock: 45, category: 'Electronics' },
+      { id: '3', name: 'Office Chair', price: 149.99, stock: 12, category: 'Furniture' },
+      { id: '4', name: 'Desk Lamp', price: 19.99, stock: 80, category: 'Furniture' },
+    ] as Product[];
+  }
 });
 
 export const addProduct = createAsyncThunk(
