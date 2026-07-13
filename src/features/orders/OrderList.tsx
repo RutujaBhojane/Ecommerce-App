@@ -37,7 +37,7 @@ const OrderList = () => {
         <tbody>
           {items.map((o) => (
             <tr key={o.id} className="border-t">
-              <td className="p-2">#{o.id}</td>
+              <td className="p-3">#{o.id.slice(0, 8)}</td>
               <td className="p-2">{o.customerName}</td>
               <td className="p-2">{o.date}</td>
               <td className="p-2">₹ {o.amount.toFixed(2)}</td>

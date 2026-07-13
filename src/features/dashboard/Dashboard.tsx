@@ -114,7 +114,7 @@ const Dashboard = () => {
                 key={o.id}
                 className="border-t dark:border-gray-700 dark:text-gray-300"
               >
-                <td className="py-2">#{o.id}</td>
+                <td className="py-2">#{o.id.slice(0, 8)}</td>
                 <td className="py-2">{o.customerName}</td>
                 <td className="py-2">₹ {o.amount.toFixed(2)}</td>
                 <td className="py-2">{o.status}</td>
